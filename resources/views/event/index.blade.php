@@ -36,6 +36,8 @@
                     </table>
 
                     {{$event->links()}}
+
+                    <a href="event/create" class="btn btn-success">Create an event</a>
                 </div>
             </div>
         </div>
