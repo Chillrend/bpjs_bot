@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-@endsection
+@extends('layouts.app') 
 
 @section('content')
 <div class="container">
@@ -10,66 +6,63 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">{{ __('Create Event') }}</div>
-                <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{ url('/event/submit') }}">
+                <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{ url('/event/store') }}">
                         {!! csrf_field() !!}
 
-                        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                            <label for="title" class="col-md-4 control-label">Event Title</label>
+                        <div class="form-group{{ $errors->has('event_title') ? ' has-error' : '' }}">
+                            <label for="event_title" class="col-md-4 control-label">Event Title</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
+                                <input id="event_title" type="text" class="form-control" name="event_title" value="{{ old('event_title') }}">
                                 <small class="form-text text-muted">Insert your event title. General markdown syntax is supported in this field</small>
 
-                                @if ($errors->has('title'))
+                                @if ($errors->has('event_title'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('title') }}</strong>
+                                        <strong>{{ $errors->first('event_title') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('priority') ? ' has-error' : '' }}">
-                            <label for="priority" class="col-md-4 control-label">Priority</label>
+                        <div class="form-group{{ $errors->has('event_description') ? ' has-error' : '' }}">
+                            <label for="event_description" class="col-md-4 control-label">Description</label>
+
+                            <div class="col-md-8">
+                                <textarea id="event_description" name="event_description" class="form-control" rows="8"></textarea>
+                                <small class="form-text text-muted">Insert your event description here, general markdown syntax is also supported. You can also tag Roles and user by using <code><@&Role_ID></code> for roles, and <code><@user-id></code> for user.</small>
+                                @if ($errors->has('event_description'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('event_description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('event_image_url') ? ' has-error' : '' }}">
+                            <label for="event_image_url" class="col-md-4 control-label">Event Image URL</label>
 
                             <div class="col-md-6">
-                                <select id="priority" type="" class="form-control" name="priority">
-                                	<option value="">Select Priority</option>
-                                	<option value="low">Low</option>
-                                	<option value="medium">Medium</option>
-                                	<option value="high">High</option>
-                                </select>
+                                <input id="event_image_url" type="text" class="form-control" name="event_image_url" value="{{ old('time') }}">
+                                <small class="form-text text-muted">Insert your event cover image here if any. Leave it empty otherwise</small>
 
-                                @if ($errors->has('priority'))
+                                @if ($errors->has('event_image_url'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('priority') }}</strong>
+                                        <strong>{{ $errors->first('event_image_url') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('picture') ? ' has-error' : '' }}">
-                            <label for="picture" class="col-md-4 control-label">Insert a picture</label>
+                        <div class="form-group{{ $errors->has('time') ? ' has-error' : '' }}">
+                            <label for="time" class="col-md-4 control-label">Event Time</label>
 
                             <div class="col-md-6">
-                                <input type="file" id="picture" class="picture" name="picture" accept="image/*" />
+                                <input id="time" type="text" class="form-control" name="time" value="{{ old('time') }}" required pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$">
+                                <small class="form-text text-muted">Please insert time in a 24-hour format (e.g 07:30, 22:30) or the webhook won't send the notification</small>
 
-                                @if ($errors->has('picture'))
+                                @if ($errors->has('time'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('picture') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
-                            <label for="message" class="col-md-4 control-label">Message</label>
-
-                            <div class="col-md-12">
-                                <textarea rows="10" id="message" name="message"></textarea>
-
-                                @if ($errors->has('message'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('message') }}</strong>
+                                        <strong>{{ $errors->first('time') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -90,11 +83,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script>
-        var markdownEditor = new SimpleMDE({ element: document.getElementById('message') });
-    </script>
 @endsection

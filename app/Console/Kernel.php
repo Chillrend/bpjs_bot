@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Spatie\WebhookServer\WebhookCall;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +25,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $file = 'C:\wamp64\www\bpjs__bot\output.log';
         // $schedule->command('inspire')->hourly();
+        $schedule->call(function ()
+        {
+
+            WebhookCall::create()
+                ->url('https://discordapp.com/api/webhooks/739056585430532126/-WfR0ieITYeJ5zbF2Wo_LdTpDYiieWYMOiGg-jCa56MT0zcnJXvl17qg9TXjbWQN78QL')
+                ->payload(['content' => 'HELLO TEMPEST DISCORD!'])
+                ->dispatch();
+
+        })->everyMinute()->sendOutputTo($file);
     }
 
     /**

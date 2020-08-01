@@ -17,9 +17,9 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('event_title');
             $table->string('event_description');
-            $table->string('event_image_url');
+            $table->string('event_image_url')->nullable();
             $table->string('time');
-            $table->integer('host');
+            $table->integer('host')->nullable();
             $table->timestamps();
         });
     }
