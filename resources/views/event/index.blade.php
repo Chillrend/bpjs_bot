@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Event') }}</div>
 
@@ -14,6 +14,7 @@
                                 <th>ID</th>
                                 <th>Event Title</th>
                                 <th>Event Description</th>
+                                <th>Mentions</th>
                                 <th>Cover Image</th>
                                 <th>Time</th>
                                 <th>Action</th>
@@ -25,6 +26,7 @@
                                 <th scope="row">{{$e->id}}</th>
                                 <td>@markdown{{$e->event_title}}@endmarkdown</td>
                                 <td>@markdown{{$e->event_description}}@endmarkdown</td>
+                                <td>{{$e->mentions}}</td>
                                 <td><img src="{{$e->event_image_url}}" alt="Event Image" height=80></td>
                                 <td>{{$e->time}}</td>
                                 <td>

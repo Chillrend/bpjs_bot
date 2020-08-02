@@ -38,6 +38,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('mentions') ? ' has-error' : '' }}">
+                            <label for="mention" class="col-md-4 control-label">Mentions</label>
+
+                            <div class="col-md-8">
+                                <input type="text" id="mentions" name="mentions" class="form-control" />
+                                <small class="form-text text-muted">Mentions will get inserted into the <code>content:</code> section of the Webhook payload. You can mention Roles and user by using <code><@&Role_ID></code> for roles, and <code><@user-id></code> for user.</small>
+                                @if ($errors->has('mentions'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('mentions') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('event_image_url') ? ' has-error' : '' }}">
                             <label for="event_image_url" class="col-md-4 control-label">Event Image URL</label>
 
@@ -57,7 +71,7 @@
                             <label for="time" class="col-md-4 control-label">Event Time</label>
 
                             <div class="col-md-6">
-                                <input id="time" type="text" class="form-control" name="time" value="{{ old('time') }}" required pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$">
+                                <input id="time" type="text" class="form-control" name="time" value="{{ old('time') }}" required>
                                 <small class="form-text text-muted">Please insert time in a 24-hour format (e.g 07:30, 22:30) or the webhook won't send the notification</small>
 
                                 @if ($errors->has('time'))

@@ -26,6 +26,7 @@ class EventRequest extends FormRequest
         return [
             'event_title' => 'required',
             'event_description' => 'required',
+            'mentions' => 'required',
             'time' => 'required',
             'event_image_url' => 'sometimes|active_url'
         ];
