@@ -42,6 +42,7 @@ class SendHook extends Command
     {
         $_ev = Event::where('time', 'like', '%'.Carbon::now()->format('h:i').'%')->get();
 
+        if (!empty($_ev)){
         foreach($_ev as $list)
         {
             WebhookCall::create()
@@ -59,6 +60,7 @@ class SendHook extends Command
             ->dispatch();
 
         }
+    }
         return $list ? 1 : 0;
     }
 }
