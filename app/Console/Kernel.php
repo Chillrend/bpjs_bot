@@ -26,7 +26,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $file = 'C:\wamp64\www\bpjs__bot\output.log';
-        $schedule->command('bpjs:send')->everyTenMinutes()->sendOutputTo($file);=
+        $schedule->command('bpjs:send')->everyTenMinutes()->sendOutputTo($file);
+
+    }
 
     /**
      * Register the commands for the application.
