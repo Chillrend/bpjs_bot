@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Event;
+use Carbon\Carbon;
+use Illuminate\Console\Command;
+use Spatie\WebhookServer\WebhookCall;
+class SendHook extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'bpjs:send';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Kirim webhook lur';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        $list = Event::where('time', '=', Carbon::now()->format('h:i'))->first();
+
+        return $list ? WebhookCall::create()
+        ->url('https://discordapp.com/api/webhooks/739056585430532126/-WfR0ieITYeJ5zbF2Wo_LdTpDYiieWYMOiGg-jCa56MT0zcnJXvl17qg9TXjbWQN78QL')
+        ->payload(['embeds' => 
+        [
+            ['title' => $list->event_title . ' @' . $list->time, 
+            'description' => $list->event_description,
+            'color' => 23334,
+            'timestamp' => Carbon::now(),
+            'image' => ['url' => empty($list->event_image_url) ? '' : $list->event_image_url]
+            ]
+            ]])
+        ->useSecret('helloSecret')
+        ->dispatch() : 0;
+    }
+}
