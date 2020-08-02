@@ -19,7 +19,6 @@ class EventController extends Controller
     public function index(){
         $event = Event::paginate(10);
         $time = Carbon::now('Asia/Jakarta');
-
         return view('event.index', compact(['event', 'time']));
     }
 

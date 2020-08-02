@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Spatie\WebhookServer\WebhookCall;
+use Illuminate\Support\Facades\Log;
+
 class SendHook extends Command
 {
     /**
@@ -48,13 +50,16 @@ class SendHook extends Command
                 $payload = [
                     'content' => empty($list->mentions) ? '' : $list->mentions,
                     'embeds' => [
-                        'title' => $list->event_title . ' @' . $list->time, 
-                        'description' => $list->event_description,
-                        'color' => 23334,
-                        'timestamp' => Carbon::now(),
-                        'image' => ['url' => empty($list->event_image_url) ? '' : $list->event_image_url]
+                        [
+                            'title' => $list->event_title . ' @' . $list->time, 
+                            'description' => $list->event_description,
+                            'color' => 23334,
+                            'timestamp' => Carbon::now(),
+                            'image' => ['url' => empty($list->event_image_url) ? '' : $list->event_image_url]
+                        ]
                     ]
                 ];
+                Log::error('Sending a webhook for .' . $list->event_title);
 
                 WebhookCall::create()
                 ->url(Config::get('discord.discord_webhook_url'))
