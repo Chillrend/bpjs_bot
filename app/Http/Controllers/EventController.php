@@ -6,6 +6,7 @@ use App\Event;
 use App\Http\Requests\EventRequest;
 use Illuminate\Http\Request;
 use Spatie\WebhookServer\WebhookCall;
+use Illuminate\Support\Facades\Config;
 
 class EventController extends Controller
 {
@@ -20,6 +21,12 @@ class EventController extends Controller
         return view('event.index', compact('event'));
     }
 
+    public function show($event_id){
+        $event = Event::findOrFail($event_id);
+
+        return view('event.show', compact('event'));
+    }
+
     public function create(){
         return view('event.create');
     }
@@ -27,16 +34,42 @@ class EventController extends Controller
     public function store(EventRequest $request){
 
         // WebhookCall::create()
-        //         ->url('https://discordapp.com/api/webhooks/739056585430532126/-WfR0ieITYeJ5zbF2Wo_LdTpDYiieWYMOiGg-jCa56MT0zcnJXvl17qg9TXjbWQN78QL')
+        //         ->url(Config::get('discord.discord_webhook_url'))
         //         ->payload(['content' => 'HELLO TEMPEST DISCORD!'])
+        //         ->useSecret('helloSecret')
         //         ->dispatch();
-
 
         $data = $request->validated();
 
         $event = new Event($data);
         $event->save();
         
+        return redirect('/event');
+    }
+
+    public function edit($event_id)
+    {
+        $event = Event::findOrFail($event_id);
+
+        return view('event.edit', compact('event'));
+    }
+
+    public function update($event_id, EventRequest $request)
+    {
+        $data = $request->validated();
+
+        $event = Event::findOrFail($event_id);
+
+        $event->fill($data);
+        $event->save();
+
+        return redirect('/event');
+    }
+
+    public function delete($event_id)   
+    {
+        Event::findOrFail($event_id)->delete();
+
         return redirect('/event');
     }
 }

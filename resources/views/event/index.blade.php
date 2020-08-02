@@ -14,8 +14,8 @@
                                 <th>ID</th>
                                 <th>Event Title</th>
                                 <th>Event Description</th>
+                                <th>Cover Image</th>
                                 <th>Time</th>
-                                <th>Host</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -23,12 +23,13 @@
                         @foreach($event as $e)
                             <tr>
                                 <th scope="row">{{$e->id}}</th>
-                                <td>{{$e->event_title}}</td>
-                                <td>{{$e->event_description}}</td>
+                                <td>@markdown{{$e->event_title}}@endmarkdown</td>
+                                <td>@markdown{{$e->event_description}}@endmarkdown</td>
+                                <td><img src="{{$e->event_image_url}}" alt="Event Image" height=80></td>
                                 <td>{{$e->time}}</td>
-                                <td>{{$e->host}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-default">View</a>
+                                    <a href="event/delete/{{$e->id}}" class="btn btn-danger" onclick="confirm('You sure?')">Delete</a>
+                                    <a href="event/edit/{{$e->id}}" class="btn btn-info">Edit</a>
                                 </td>
                             </tr>
                         @endforeach
