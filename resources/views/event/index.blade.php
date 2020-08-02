@@ -6,7 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Event') }}</div>
-                    {{$time}}
+                <div class="card-body">
+                    Server time now : {{$time}}
                     <table class="table table-bordered">
                         <thead>
                             <tr>
