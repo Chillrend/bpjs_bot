@@ -26,17 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $file = 'C:\wamp64\www\bpjs__bot\output.log';
-        // $schedule->command('inspire')->hourly();
-        $schedule->call(function ()
-        {
-
-            WebhookCall::create()
-                ->url('https://discordapp.com/api/webhooks/739056585430532126/-WfR0ieITYeJ5zbF2Wo_LdTpDYiieWYMOiGg-jCa56MT0zcnJXvl17qg9TXjbWQN78QL')
-                ->payload(['content' => 'HELLO TEMPEST DISCORD!'])
-                ->dispatch();
-
-        })->everyMinute()->sendOutputTo($file);
-    }
+        $schedule->command('bpjs:send')->everyTenMinutes()->sendOutputTo($file);=
 
     /**
      * Register the commands for the application.

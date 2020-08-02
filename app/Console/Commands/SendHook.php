@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Event;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
 use Spatie\WebhookServer\WebhookCall;
 class SendHook extends Command
 {
@@ -39,20 +40,25 @@ class SendHook extends Command
      */
     public function handle()
     {
-        $list = Event::where('time', '=', Carbon::now()->format('h:i'))->first();
+        $_ev = Event::where('time', 'like', '%'.Carbon::now()->format('h:i').'%')->get();
 
-        return $list ? WebhookCall::create()
-        ->url('https://discordapp.com/api/webhooks/739056585430532126/-WfR0ieITYeJ5zbF2Wo_LdTpDYiieWYMOiGg-jCa56MT0zcnJXvl17qg9TXjbWQN78QL')
-        ->payload(['embeds' => 
-        [
-            ['title' => $list->event_title . ' @' . $list->time, 
-            'description' => $list->event_description,
-            'color' => 23334,
-            'timestamp' => Carbon::now(),
-            'image' => ['url' => empty($list->event_image_url) ? '' : $list->event_image_url]
-            ]
-            ]])
-        ->useSecret('helloSecret')
-        ->dispatch() : 0;
+        foreach($_ev as $list)
+        {
+            WebhookCall::create()
+            ->url(Config::get('discord.discord_webhook_url'))
+            ->payload(['embeds' => 
+            [
+                ['title' => $list->event_title . ' @' . $list->time, 
+                'description' => $list->event_description,
+                'color' => 23334,
+                'timestamp' => Carbon::now(),
+                'image' => ['url' => empty($list->event_image_url) ? '' : $list->event_image_url]
+                ]
+                ]])
+            ->useSecret('helloSecret')
+            ->dispatch();
+
+        }
+        return $list ? 1 : 0;
     }
 }
