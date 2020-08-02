@@ -1,0 +1,20 @@
+[02-Aug-2020 09:27:24 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:28:13 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:32:33 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:33:58 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:37:40 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:38:01 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:38:01 Asia/Jakarta] PHP Notice:  Undefined index: argv in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 49
+[02-Aug-2020 09:38:01 Asia/Jakarta] PHP Warning:  array_shift() expects parameter 1 to be array, null given in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 53
+[02-Aug-2020 09:39:01 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:39:01 Asia/Jakarta] PHP Notice:  Undefined index: argv in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 49
+[02-Aug-2020 09:39:01 Asia/Jakarta] PHP Warning:  array_shift() expects parameter 1 to be array, null given in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 53
+[02-Aug-2020 09:40:02 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:40:02 Asia/Jakarta] PHP Notice:  Undefined index: argv in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 49
+[02-Aug-2020 09:40:02 Asia/Jakarta] PHP Warning:  array_shift() expects parameter 1 to be array, null given in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 53
+[02-Aug-2020 09:41:01 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:41:01 Asia/Jakarta] PHP Notice:  Undefined index: argv in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 49
+[02-Aug-2020 09:41:01 Asia/Jakarta] PHP Warning:  array_shift() expects parameter 1 to be array, null given in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 53
+[02-Aug-2020 09:42:02 Asia/Jakarta] PHP Deprecated:  Directive 'allow_url_include' is deprecated in Unknown on line 0
+[02-Aug-2020 09:42:02 Asia/Jakarta] PHP Notice:  Undefined index: argv in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 49
+[02-Aug-2020 09:42:02 Asia/Jakarta] PHP Warning:  array_shift() expects parameter 1 to be array, null given in /home/madjavac/webhook.madjavacoder.com/bpjs_bot/vendor/symfony/console/Input/ArgvInput.php on line 53
