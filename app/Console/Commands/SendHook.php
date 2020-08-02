@@ -64,6 +64,6 @@ class SendHook extends Command
 
         }
     }
-        return $list ? 1 : 0;
+        return $_ev ? 1 : 0;
     }
 }
