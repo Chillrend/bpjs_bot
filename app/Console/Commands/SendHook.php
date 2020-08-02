@@ -43,27 +43,27 @@ class SendHook extends Command
         $_ev = Event::where('time', 'like', '%'.Carbon::now()->format('h:i').'%')->get();
 
         if (!empty($_ev)){
-        foreach($_ev as $list)
-        {
-            $payload = [
-                'content' => empty($list->mentions) ? '' : $list->mentions,
-                'embeds' => [
-                    'title' => $list->event_title . ' @' . $list->time, 
-                    'description' => $list->event_description,
-                    'color' => 23334,
-                    'timestamp' => Carbon::now(),
-                    'image' => ['url' => empty($list->event_image_url) ? '' : $list->event_image_url]
-                ]
-            ];
+            foreach($_ev as $list)
+            {
+                $payload = [
+                    'content' => empty($list->mentions) ? '' : $list->mentions,
+                    'embeds' => [
+                        'title' => $list->event_title . ' @' . $list->time, 
+                        'description' => $list->event_description,
+                        'color' => 23334,
+                        'timestamp' => Carbon::now(),
+                        'image' => ['url' => empty($list->event_image_url) ? '' : $list->event_image_url]
+                    ]
+                ];
 
-            WebhookCall::create()
-            ->url(Config::get('discord.discord_webhook_url'))
-            ->payload($payload)
-            ->useSecret('helloSecret')
-            ->dispatch();
+                WebhookCall::create()
+                ->url(Config::get('discord.discord_webhook_url'))
+                ->payload($payload)
+                ->useSecret('helloSecret')
+                ->dispatch();
 
+            }
         }
-    }
-        return $_ev ? 1 : 0;
+    return $_ev ? 1 : 0;
     }
 }

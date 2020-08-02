@@ -8,6 +8,7 @@
                 <div class="card-header">{{ __('Event') }}</div>
 
                 <div class="card-body">
+                    {{$time}}
                     <table class="table table-bordered">
                         <thead>
                             <tr>

@@ -7,6 +7,7 @@ use App\Http\Requests\EventRequest;
 use Illuminate\Http\Request;
 use Spatie\WebhookServer\WebhookCall;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Carbon;
 
 class EventController extends Controller
 {
@@ -17,8 +18,9 @@ class EventController extends Controller
 
     public function index(){
         $event = Event::paginate(10);
+        $time = Carbon::now('Asia/Jakarta');
 
-        return view('event.index', compact('event'));
+        return view('event.index', compact(['event', 'time']));
     }
 
     public function show($event_id){
