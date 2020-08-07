@@ -26,4 +26,11 @@ Route::post('/event/store', 'EventController@store');
 Route::get('event/delete/{id}', 'EventController@delete');
 Route::get('event/edit/{id}', 'EventController@edit');
 Route::post('event/update/{id}', 'EventController@update');
+
+Route::get('/colosseum', 'ColosseumController@index');
+Route::get('/colosseum/create', 'ColosseumController@create');
+Route::post('/colosseum/store', 'ColosseumController@store');
+Route::get('/colosseum/delete/{id}', 'ColosseumController@delete');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
