@@ -60,39 +60,31 @@ class ColosseumController extends Controller
             $rival_wr = '*' . $rival_w->count() . 'W' . $rival_l->count() . 'L*';
         }
 
-        $past_5_days = Colosseum::latest()->limit(5);
+        $past_5_days = Colosseum::where('colosseum_date', '<=', date('Y-m-d'))->orderBy('colosseum_date', 'DESC')->limit(5)->get();
 
-        $past_5_result = [];
+        $past_5_result = array();
 
         foreach ($past_5_days as $result) {
+            $output->writeln('i get in for');
             if($result->outcome == 'Victory'){
-                $past_5_result[] = 'W';
+                array_push($past_5_result, 'W');
+                $output->writeln('i get in if W');
             }elseif ($result->outcome == 'Defeat'){
-                $past_5_result[] = 'L';
+                array_push($past_5_result, 'L');
+                $output->writeln('i get in if L');
             }
         }
 
-        if(count($past_5_result) <> 5){
+        if(count($past_5_result) != 5){
             $minus = 5 - count($past_5_result);
 
             for ($i = 0; $i<$minus; $i++){
-                $past_5_result[] = '-';
+                array_unshift($past_5_result, '-');
+                $output->writeln(implode($past_5_result));
             }
         }
 
-        $past_5_result = array_flip($past_5_result);
-
-        $description = '**Outcome** \n' .
-                        $colosseum->outcome  . ' \n' .
-
-                        '**Lifeforce** \n'.
-                        $colosseum->lifeforce_our . ' vs. ' . $colosseum->lifeforce_theirs . '\n' .
-
-                        '**Match History vs. ' . $colosseum->rival . '** \n' .
-                        $rival_wr . '\n' .
-
-                        '**Past 5 Days Colosseum Result** \n' .
-                        implode($past_5_result);
+        $past_result = implode($past_5_result);
 
         $payload = [
             'content' => "This day colosseum results : ",
@@ -102,7 +94,7 @@ class ColosseumController extends Controller
                     'fields' => [
                         [
                             'name' => 'Outcome',
-                            'value' => $colosseum->outcome == 'Defeat' ? ':flag_white: ' . $colosseum->outcome : ':crossed_swords: ' . $colosseum->outcome
+                            'value' => $colosseum->outcome == 'Defeat' ? ':flag_white: ' . $colosseum->outcome . ' :flag_white:' : ':crossed_swords: ' . $colosseum->outcome . ' :crossed_swords:'
                         ],
                         [
                             'name' => 'Lifeforce',
@@ -114,12 +106,14 @@ class ColosseumController extends Controller
                         ],
                         [
                             'name' => 'Past 5 Days Colosseum Result',
-                            'value' => implode($past_5_result)
+                            'value' => '*' . $past_result . '*'
                         ]
                     ],
                     'description' => '*Access to the complete colosseum archive [here](https://madjavacoder.com/)*',
                     'color' => $colosseum->outcome == 'Victory' ? 2300919:16189705,
-                    'footer' => 'All men created equals, except whales. Whales are not men.'
+                    'footer' => [
+                        'text' => 'All men created equals, except whales. Whales are not men.'
+                    ]
                 ]
             ]
         ];
