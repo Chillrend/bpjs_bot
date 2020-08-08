@@ -62,13 +62,6 @@ class ColosseumController extends Controller
     }
 
     public function store(ColosseumRequest $request){
-
-        // WebhookCall::create()
-        //         ->url(Config::get('discord.discord_webhook_url'))
-        //         ->payload(['content' => 'HELLO TEMPEST DISCORD!'])
-        //         ->useSecret('helloSecret')
-        //         ->dispatch();
-
         $data = $request->validated();
 
         $colosseum = new Colosseum($data);
@@ -138,7 +131,7 @@ class ColosseumController extends Controller
                             'value' => '*' . $past_result . '*'
                         ]
                     ],
-                    'description' => '*Access to the complete colosseum archive [here](https://madjavacoder.com/)*',
+                    'description' => '*Access to the complete colosseum archive [here]('. url('/tempest') .')*',
                     'color' => $colosseum->outcome == 'Victory' ? 2300919:16189705,
                     'footer' => [
                         'text' => 'All men created equals, except whales. Whales are not men.'
