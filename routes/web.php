@@ -27,7 +27,7 @@ Route::get('event/delete/{id}', 'EventController@delete');
 Route::get('event/edit/{id}', 'EventController@edit');
 Route::post('event/update/{id}', 'EventController@update');
 
-Route::get('/colosseum', 'ColosseumController@index');
+Route::get('/colosseum', ['uses' => 'ColosseumController@index', 'as' => 'colosseum_i']);
 Route::get('/colosseum/create', 'ColosseumController@create');
 Route::post('/colosseum/store', 'ColosseumController@store');
 Route::get('/colosseum/delete/{id}', 'ColosseumController@delete');

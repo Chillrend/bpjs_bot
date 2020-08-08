@@ -178,6 +178,9 @@ return [
         // Markdown Provider
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
+        //Datatables Provider
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
     ],
 
     /*

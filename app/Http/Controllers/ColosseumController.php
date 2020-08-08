@@ -9,14 +9,31 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Spatie\WebhookServer\WebhookCall;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Yajra\DataTables\Facades\DataTables;
 
 class ColosseumController extends Controller
 {
 
-    public function index(){
-        $colosseum = Colosseum::paginate(15);
+    public function index(Request $request){
+
+        if($request->ajax()){
+
+            $colosseum = Colosseum::select('colosseum_date' ,'rival', 'outcome', 'lifeforce_our', 'lifeforce_theirs', 'colosseum_type')->latest()->get();
+
+            return DataTables::of($colosseum)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row){
+                    $edit_url = url('colosseum/edit/' . $row->id);
+                    $delete_url = url('colosseum/delete/' . $row->id);
+
+                    return '<a href="' . $delete_url .'" class="btn btn-danger" onclick="confirm(\'You sure?\')">Delete</a> <a href="' . $edit_url .'" class="btn btn-info">Edit</a>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
         $time = Carbon::now('Asia/Jakarta');
-        return view('colosseum.index', compact(['colosseum', 'time']));
+        return view('colosseum.index', compact(['time']));
     }
 
     public function show($colo_id){
@@ -49,7 +66,8 @@ class ColosseumController extends Controller
 
     private function dispatchWebhook($colosseum){
 
-        $output = new ConsoleOutput();
+        // Debug line, uncomment and write $output.writeln('message') to show message inside php artisan serve's log
+        // $output = new ConsoleOutput();
 
         $rival_w = Colosseum::where('rival', $colosseum->rival)->where('outcome', 'Victory')->get();
         $rival_l = Colosseum::where('rival', $colosseum->rival)->where('outcome', 'Defeat')->get();
@@ -65,13 +83,10 @@ class ColosseumController extends Controller
         $past_5_result = array();
 
         foreach ($past_5_days as $result) {
-            $output->writeln('i get in for');
             if($result->outcome == 'Victory'){
                 array_push($past_5_result, 'W');
-                $output->writeln('i get in if W');
             }elseif ($result->outcome == 'Defeat'){
                 array_push($past_5_result, 'L');
-                $output->writeln('i get in if L');
             }
         }
 
@@ -80,7 +95,6 @@ class ColosseumController extends Controller
 
             for ($i = 0; $i<$minus; $i++){
                 array_unshift($past_5_result, '-');
-                $output->writeln(implode($past_5_result));
             }
         }
 
@@ -118,16 +132,11 @@ class ColosseumController extends Controller
             ]
         ];
 
-        var_dump($payload);
-
-
         WebhookCall::create()
             ->url(Config::get('discord.discord_colosseum_webhook_url'))
             ->payload($payload)
             ->useSecret('sekrit')
             ->dispatch();
-
-        $output->writeln(json_encode($payload));
     }
 
     public function edit($event_id)
