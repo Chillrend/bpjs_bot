@@ -98,6 +98,8 @@ class ColosseumController extends Controller
             }
         }
 
+        $past_5_result = array_reverse($past_5_result);
+
         if(count($past_5_result) != 5){
             $minus = 5 - count($past_5_result);
 
