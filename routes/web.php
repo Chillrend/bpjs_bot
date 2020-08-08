@@ -27,10 +27,13 @@ Route::get('event/delete/{id}', 'EventController@delete');
 Route::get('event/edit/{id}', 'EventController@edit');
 Route::post('event/update/{id}', 'EventController@update');
 
-Route::get('/colosseum', ['uses' => 'ColosseumController@index', 'as' => 'colosseum_i']);
-Route::get('/colosseum/create', 'ColosseumController@create');
-Route::post('/colosseum/store', 'ColosseumController@store');
-Route::get('/colosseum/delete/{id}', 'ColosseumController@delete');
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/colosseum', ['uses' => 'ColosseumController@index', 'as' => 'colosseum_i']);
+    Route::get('/colosseum/create', 'ColosseumController@create');
+    Route::post('/colosseum/store', 'ColosseumController@store');
+    Route::get('/colosseum/delete/{id}', 'ColosseumController@delete');
+});
 
+Route::get('/tempest', ['uses' => 'ColosseumController@public', 'as'=> 'colosseum_p']);
 
 Route::get('/home', 'HomeController@index')->name('home');

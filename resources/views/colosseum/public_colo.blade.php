@@ -14,20 +14,17 @@
                         Server time now : {{$time}}
                         <table class="table table-bordered" id="colo_table">
                             <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Battle Date</th>
-                                    <th>Rival</th>
-                                    <th>Outcome</th>
-                                    <th>Ally Lifeforce</th>
-                                    <th>Enemy Lifeforce</th>
-                                    <th>Colosseum Type</th>
-                                    <th>Action</th>
-                                </tr>
+                            <tr>
+                                <th>No.</th>
+                                <th>Battle Date</th>
+                                <th>Rival</th>
+                                <th>Outcome</th>
+                                <th>Ally Lifeforce</th>
+                                <th>Enemy Lifeforce</th>
+                                <th>Colosseum Type</th>
+                            </tr>
                             </thead>
                         </table>
-
-                        <a href="colosseum/create" class="btn btn-success">Create a colosseum archive entry</a>
                     </div>
                 </div>
             </div>
@@ -47,7 +44,7 @@
             table = $('#colo_table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{route('colosseum_i')}}',
+                ajax: '{{route('colosseum_p')}}',
                 columns: [
                     { data: 'DT_RowIndex',  name: 'DT_RowIndex' },
                     { data: 'colosseum_date',  name: 'colosseum_date' },
@@ -55,33 +52,9 @@
                     { data: 'outcome',  name: 'outcome' },
                     { data: 'lifeforce_our',  name: 'lifeforce_our' },
                     { data: 'lifeforce_theirs',  name: 'lifeforce_theirs' },
-                    { data: 'colosseum_type',  name: 'colosseum_type' },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: true,
-                        searchable: true
-                    }
-
+                    { data: 'colosseum_type',  name: 'colosseum_type' }
                 ]
             });
         });
-
-        // column: [
-        //     { data: 'DT_RowIndex',  name: 'DT_RowIndex' },
-        //     { data: 'colosseum_date',  name: 'colosseum_date' },
-        //     { data: 'rival',  name: 'rival' },
-        //     { data: 'outcome',  name: 'outcome' },
-        //     { data: 'lifeforce_our',  name: 'lifeforce_our' },
-        //     { data: 'lifeforce_theirs',  name: 'lifeforce_theirs' },
-        //     { data: 'colosseum_type',  name: 'colosseum_type' },
-        //     {
-        //         data: 'action',
-        //         name: 'action',
-        //         orderable: true,
-        //         searchable: true
-        //     }
-        //
-        // ]
     </script>
 @endsection

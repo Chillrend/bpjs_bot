@@ -18,7 +18,7 @@ class ColosseumController extends Controller
 
         if($request->ajax()){
 
-            $colosseum = Colosseum::select('colosseum_date' ,'rival', 'outcome', 'lifeforce_our', 'lifeforce_theirs', 'colosseum_type')->latest()->get();
+            $colosseum = Colosseum::select('id', 'colosseum_date' ,'rival', 'outcome', 'lifeforce_our', 'lifeforce_theirs', 'colosseum_type')->latest()->get();
 
             return DataTables::of($colosseum)
                 ->addIndexColumn()
@@ -26,7 +26,7 @@ class ColosseumController extends Controller
                     $edit_url = url('colosseum/edit/' . $row->id);
                     $delete_url = url('colosseum/delete/' . $row->id);
 
-                    return '<a href="' . $delete_url .'" class="btn btn-danger" onclick="confirm(\'You sure?\')">Delete</a> <a href="' . $edit_url .'" class="btn btn-info">Edit</a>';
+                    return '<a href="' . $delete_url .'" class="btn btn-danger" onclick="return confirm(\'You sure?\')">Delete</a> <a href="' . $edit_url .'" class="btn btn-info">Edit</a>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -34,6 +34,21 @@ class ColosseumController extends Controller
 
         $time = Carbon::now('Asia/Jakarta');
         return view('colosseum.index', compact(['time']));
+    }
+
+    public function public(Request $request){
+
+        if($request->ajax()){
+
+            $colosseum = Colosseum::select('colosseum_date' ,'rival', 'outcome', 'lifeforce_our', 'lifeforce_theirs', 'colosseum_type')->latest()->get();
+
+            return DataTables::of($colosseum)
+                ->addIndexColumn()
+                ->make(true);
+        }
+
+        $time = Carbon::now('Asia/Jakarta');
+        return view('colosseum.public_colo', compact(['time']));
     }
 
     public function show($colo_id){
