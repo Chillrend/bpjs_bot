@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -82,6 +82,23 @@
                             </div>
                         </div>
 
+                    <div class="form-group{{ $errors->has('remind_five_minutes_before') ? ' has-error' : '' }}">
+
+                        <div class="form-check ml-3">
+                            <input id="remind_five_minutes_before" type="checkbox" value="1" class=" form-check-input" name="remind_five_minutes_before" {{ $event->remind_five_minutes_before == 1 ? 'checked':''}} >
+                            <label for="remind_five_minutes_before" class="form-check-label">Send webhook 5 minutes before the schedule</label>
+                            <small class="form-text text-muted"><em>Self-explanatory</em></small>
+                        </div>
+
+                        <div class="col-md-6">
+                            @if ($errors->has('remind_five_minutes_before'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('remind_five_minutes_before') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                    </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -91,7 +108,7 @@
                         </div>
                     </form>
                 <div class="card-body">
-                    
+
                 </div>
             </div>
         </div>
