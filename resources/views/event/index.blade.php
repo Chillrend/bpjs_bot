@@ -17,6 +17,7 @@
                                 <th>Mentions</th>
                                 <th>Cover Image</th>
                                 <th>Time</th>
+                                <th>5-min bef. remind.</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -29,6 +30,7 @@
                                 <td>{{$e->mentions}}</td>
                                 <td><img src="{{$e->event_image_url}}" alt="Event Image" height=80></td>
                                 <td>{{$e->time}}</td>
+                                <td>{{$e->remind_five_minutes_before == 1 ? 'yes':'no'}}</td>
                                 <td>
                                     <a href="event/delete/{{$e->id}}" class="btn btn-danger" onclick="confirm('You sure?')">Delete</a>
                                     <a href="event/edit/{{$e->id}}" class="btn btn-info">Edit</a>

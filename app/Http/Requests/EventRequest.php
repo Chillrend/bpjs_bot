@@ -28,6 +28,7 @@ class EventRequest extends FormRequest
             'event_description' => 'required',
             'mentions' => 'required',
             'time' => 'required',
+            'remind_five_minutes_before' => 'sometimes',
             'event_image_url' => 'sometimes|active_url'
         ];
     }

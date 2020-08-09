@@ -34,17 +34,11 @@ class EventController extends Controller
 
     public function store(EventRequest $request){
 
-        // WebhookCall::create()
-        //         ->url(Config::get('discord.discord_webhook_url'))
-        //         ->payload(['content' => 'HELLO TEMPEST DISCORD!'])
-        //         ->useSecret('helloSecret')
-        //         ->dispatch();
-
         $data = $request->validated();
 
         $event = new Event($data);
         $event->save();
-        
+
         return redirect('/event');
     }
 
@@ -67,7 +61,7 @@ class EventController extends Controller
         return redirect('/event');
     }
 
-    public function delete($event_id)   
+    public function delete($event_id)
     {
         Event::findOrFail($event_id)->delete();
 
