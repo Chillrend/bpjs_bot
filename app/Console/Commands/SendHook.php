@@ -42,7 +42,11 @@ class SendHook extends Command
      */
     public function handle()
     {
-        $_ev = Event::where('time', 'like', '%'.Carbon::now('Asia/Jakarta')->format('h:i').'%')->get();
+        $_ev = Event::where('time', 'like', '%'.Carbon::now('Asia/Jakarta')->format('H:i').'%')->get();
+
+ 	Log::error('initiating job at ' . Carbon::now('Asia/Jakarta'));
+	Log::error('found '. count($_ev) .' object matching the time '. Carbon::now('Asia/Jakarta')->format('H:i'));
+
 
         if (!empty($_ev)){
             foreach($_ev as $list)
