@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Config;
 use Spatie\WebhookServer\WebhookCall;
 use Illuminate\Support\Facades\Log;
 
-class SendHook extends Command
+class aye extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'bpjs:send';
+    protected $signature = 'bpjs:aye';
 
     /**
      * The console command description.
@@ -72,7 +72,7 @@ class SendHook extends Command
             'content' => empty($list->mentions) ? '' : $list->mentions,
             'embeds' => [
                 [
-                    'title' => $list->event_title,
+                    'title' => $list->event_title . ' @' . $list->time,
                     'description' => $list->event_description,
                     'color' => 23334,
                     'timestamp' => Carbon::now(),
@@ -82,7 +82,7 @@ class SendHook extends Command
         ];
 
         WebhookCall::create()
-            ->url($list->token)
+            ->url(Config::get('discord.discord_webhook_url'))
             ->payload($payload)
             ->useSecret('helloSecret')
             ->dispatch();
